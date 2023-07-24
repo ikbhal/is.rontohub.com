@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Graph Visualization with D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="graph-container"></div>
+
+  <script>
+    // Sample data (replace this with your data fetched from Neo4j)
+    const nodes = [
+      { id: 'node1', label: 'Node 1' },
+      { id: 'node2', label: 'Node 2' },
+      { id: 'node3', label: 'Node 3' }
+    ];
+
+    const links = [
+      { source: 'node1', target: 'node2' },
+      { source: 'node2', target: 'node3' }
+    ];
+
+    // Set up D3.js SVG container
+    const svg = d3.select('#graph-container')
+                  .append('svg')
+                  .attr('width', 400)
+                  .attr('height', 300);
+
+    // Create links
+    const linkSelection = svg.selectAll('line')
+                             .data(links)
+                             .enter()
+                             .append('line')
+                             .attr('stroke', 'black')
+                             .attr('stroke-width', 2);
+
+    // Create nodes
+    const nodeSelection = svg.selectAll('circle')
+                             .data(nodes)
+                             .enter()
+                             .append('circle')
+                             .attr('r', 10)
+                             .attr('fill', 'blue');
+
+    // Position nodes and links
+    linkSelection.attr('x1', d => 100)
+                 .attr('y1', d => 150)
+                 .attr('x2', d => 300)
+                 .attr('y2', d => 150);
+
+    nodeSelection.attr('cx', d => 100)
+                 .attr('cy', d => 150);
+
+  </script>
+</body>
+</html>
