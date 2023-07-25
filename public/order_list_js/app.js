@@ -20,7 +20,7 @@ function addTask() {
   updateTaskList();
 }
 
-function updateTaskList() {
+function updateTaskListOld() {
   const taskList = document.getElementById('taskList');
   taskList.innerHTML = '';
 
@@ -35,6 +35,28 @@ function updateTaskList() {
     taskList.appendChild(listItem);
   });
 }
+
+function updateTaskList() {
+    const taskList = document.getElementById('taskList');
+    taskList.innerHTML = '';
+  
+    tasks.forEach(task => {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `
+        <button onclick="moveUp(${task.id})" ${tasks.indexOf(task) === 0 ? 'disabled' : ''}>
+        <i class="fas fa-arrow-up"></i> <!-- Font Awesome icon for move up -->
+        </button>
+        <button onclick="moveDown(${task.id})" ${tasks.indexOf(task) === tasks.length - 1 ? 'disabled' : ''}>
+        <i class="fas fa-arrow-down"></i> <!-- Font Awesome icon for move down -->
+        </button>
+        <button onclick="removeTask(${task.id})">
+        <i class="fas fa-trash-alt"></i> <!-- Font Awesome icon for remove -->
+        </button>
+        <span>${task.text}</span>
+      `;
+      taskList.appendChild(listItem);
+    });
+  }
 
 function moveUp(id) {
   const taskIndex = tasks.findIndex(task => task.id === id);
